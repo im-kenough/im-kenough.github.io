@@ -2,10 +2,10 @@
 public/
 resources/
 
-# Hugo configuration files (optional, if you don't want to include these)
-*.toml
-*.yaml
-*.json
+# # Hugo configuration files (optional, if you don't want to include these)
+# *.toml
+# *.yaml
+# *.json
 
 # System specific
 .DS_Store
@@ -30,7 +30,7 @@ node_modules/
 *.old
 
 # Hugo themes (if using submodules, keep them out of gitignore)
-themes/
+# themes/
 
 # Build directories
 /dist
