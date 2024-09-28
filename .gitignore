@@ -1,0 +1,41 @@
+# Hugo generated content
+public/
+resources/
+
+# Hugo configuration files (optional, if you don't want to include these)
+*.toml
+*.yaml
+*.json
+
+# System specific
+.DS_Store
+Thumbs.db
+
+# Local Hugo server logs
+hugo_stats.json
+hugo_cache/
+
+# Temporary files created by editors
+*.swp
+*.swo
+*~
+*.bak
+*.tmp
+
+# Node modules (if you're using npm for Hugo themes or assets)
+node_modules/
+
+# Backup files
+*.bak
+*.old
+
+# Hugo themes (if using submodules, keep them out of gitignore)
+themes/
+
+# Build directories
+/dist
+/build
+
+# IDE specific files (VSCode example)
+.vscode/
+.idea/
