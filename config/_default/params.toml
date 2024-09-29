@@ -137,11 +137,11 @@ disableTextInHeader = false
   # site = "ABC12345"
   # domain = "llama.yoursite.com"
 
-[umamiAnalytics]
-  websiteid = "11bfaafe-2cac-4452-9444-fce6e771a76a"
-  domain = "kennethho.ca"
-  # dataDomains = "yoursite.com,yoursite2.com"
-  enableTrackEvent = true
+# [umamiAnalytics]
+#   websiteid = "11bfaafe-2cac-4452-9444-fce6e771a76a"
+#   domain = "kennethho.ca"
+#   # dataDomains = "yoursite.com,yoursite2.com"
+#   enableTrackEvent = true
 
 [selineAnalytics]
   # token = "XXXXXX"
