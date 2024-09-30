@@ -70,6 +70,31 @@ jobs:
       - name: BUILD - Create CNAME file for custom domain
         run: echo "kennethho.ca" > ./public/CNAME
 
+      - name: TEST - Validate HTML
+        run: |
+          npm install htmlhint -g
+          htmlhint public/**/*.html
+  
+      - name: TEST - Check for Broken Links
+        run: |
+          npm install linkinator -g
+          linkinator "public" --recursive --skip "https://staging.mydomain.tld"
+  
+      - name: TEST - Lighthouse Performance Test
+        uses: treosh/lighthouse-ci-action@v5
+        with:
+          urls: https://staging.mydomain.tld/
+          configPath: ./lighthouse-config.js
+  
+      - name: TEST - Accessibility Test with aXe
+        run: |
+          npm install axe-cli -g
+          axe https://staging.mydomain.tld
+  
+      - name: TEST - Security Headers Test
+        run: |
+          curl -I https://staging.mydomain.tld | grep -E 'Strict-Transport-Security|Content-Security-Policy|X-Frame-Options'
+
       - name: BUILD - Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
