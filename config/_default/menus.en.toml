@@ -27,6 +27,12 @@
   url = "https://github.com/im-kenough"
   weight = 20
 
+# TODO: swap to the live/showcase URL (e.g. dinesafeviz.com) once it exists
+[[main]]
+  name = "DineSafeViz"
+  url = "https://github.com/im-kenough/DineSafeViz"
+  weight = 30
+
 #[[main]]
 #  name = "Parent"
 #  weight = 20

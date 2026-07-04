@@ -1,6 +1,6 @@
 disabled = false
-languageCode = "en"
-languageName = "English"
+locale = "en"
+label = "English"
 weight = 1
 title = "Kenneth Ho"
 
@@ -11,7 +11,7 @@ title = "Kenneth Ho"
   dateFormat = "2 January 2006"
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
-  description = "This is my static generated website. There are many like it, but this one is mine. " # meta in preview description
+  description = "Cloud Systems Administrator and DevOps Analyst with 11+ years of experience keeping mission-critical systems running." # meta in preview description
   # copyright = "Copy, _right?_ :thinking_face:"
 
 [params.author]
@@ -19,8 +19,9 @@ title = "Kenneth Ho"
   # email = "youremail@example.com"
   image = "img/kenough.jpeg"
   imageQuality = 96
-  headline = "Systems Administrator"
-  bio = "This is my statically generated website. There are many like it, but this one is mine."
+  # TODO: confirm exact tagline wording with owner
+  headline = "Cloud Systems Administrator | DevOps Analyst<br>11+ yrs keeping mission-critical systems running"
+  bio = ""
   links = [
 #     { email = "mailto:hello@your_domain.com" },
 #     { link = "https://link-to-some-website.com/" },
