@@ -32,13 +32,3 @@ It also uses a custom domain from Namecheap, with Cloudflare providing DDoS miti
   - **Branding:** [kennethho.ca](https://kennethho.ca) custom domain from Namecheap.
 
 - **Analytics:** Integrated with Google Analytics, Cloudflare Web Analytics, and Umami for web traffic insights 📊.
-
-## Roadmap 🛤️
-
-Coming soon 🚧
-
-### Features 🌟
-- **Monitoring:** 📈
-  - **Uptime monitoring:** Uptime monitoring with [Uptime Kuma](https://github.com/louislam/uptime-kuma) 
-  - **JavaScript Error Logging:** Detect JS errors on users' browsers with [LogRocket](https://logrocket.com/)
-- **Alerting:** 🔔 Receive service notifications on [Discord](https://github.com/caronc/apprise/wiki/Notify_discord) server
