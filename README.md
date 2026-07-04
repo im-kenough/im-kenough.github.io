@@ -1,7 +1,7 @@
 
 # kennethho.ca - My personal website 🌐
 
-Welcome to the repository for [`kennethho.ca`](https://kennethho.ca), my personal website. The site consists of a basic landing page linking to my [Github](https://github.com/im-kenough) and [LinkedIn](https://www.linkedin.com/in/kenneth-yyz) page.
+Welcome to the repository for [`kennethho.ca`](https://kennethho.ca), my personal website. The site serves as a professional portfolio landing page, linking to my [Github](https://github.com/im-kenough), [LinkedIn](https://www.linkedin.com/in/kenneth-yyz) page, and [DineSafeViz](https://github.com/im-kenough/DineSafeViz) project.
 
 ## Project Overview 🚀
 This is a statically generated Hugo website using the Blowfish theme hosted on GitHub Pages and deployed automatically via GitHub Actions.
