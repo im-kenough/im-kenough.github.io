@@ -21,7 +21,7 @@ title = "Kenneth Ho"
   imageQuality = 96
   # TODO: confirm exact tagline wording with owner
   headline = "Cloud Systems Administrator | DevOps Analyst<br>11+ yrs keeping mission-critical systems running"
-  bio = ""
+  bio = "This is a bio text section"
   links = [
 #     { email = "mailto:hello@your_domain.com" },
 #     { link = "https://link-to-some-website.com/" },
