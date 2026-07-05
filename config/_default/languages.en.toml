@@ -17,7 +17,7 @@ title = "Kenneth Ho"
 [params.author]
   name = "Kenneth Ho"
   # email = "youremail@example.com"
-  image = "img/kenough-800x800.webp"
+  image = "img/kenough-400x400.webp"
   imageQuality = 96
   
   headline = "Cloud Systems Administrator | DevOps Analyst<br>11+ yrs keeping mission-critical systems running"
