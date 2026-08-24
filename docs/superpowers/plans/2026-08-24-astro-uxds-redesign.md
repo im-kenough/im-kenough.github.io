@@ -136,6 +136,9 @@ Thumbs.db
 
 # Local scratch (never committed)
 /scratch/
+
+# Subagent-driven-development workspace (git-ignored scratch)
+/.superpowers/
 ```
 
 - [ ] **Step 8: Verify the Hugo machinery is gone and `src/` is scaffolded**

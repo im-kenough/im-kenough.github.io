@@ -3,5 +3,3 @@ Disallow: /
 
 User-agent: Googlebot
 Disallow:
-
-Sitemap: {{ "sitemap.xml" | absURL }}
