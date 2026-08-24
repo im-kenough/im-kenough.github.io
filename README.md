@@ -17,7 +17,7 @@ It also uses a custom domain from Namecheap, with Cloudflare providing DDoS miti
 - **Build step:** None. `src/` is deployed as-is.
 - **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`)
 - **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain with DNS records & [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed to [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/)
-- **Web Analytics:** [Cloudflare](https://www.cloudflare.com/en-ca/web-analytics/) Web Analytics, [Umami](https://umami.is/) Web Analytics
+- **Web Analytics:** [Cloudflare](https://www.cloudflare.com/en-ca/web-analytics/) Web Analytics, [Umami](https://umami.is/) Web Analytics (Umami is the only analytics tag present in the page source; Cloudflare Web Analytics is injected at the Cloudflare proxy layer, not in-source)
 - **CI/CD:** [GitHub Actions](https://docs.github.com/en/actions)
 
 ## Features ✨
