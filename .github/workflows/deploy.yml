@@ -4,7 +4,7 @@
 name: build and deploy site
 
 on:
-  # Runs on pushes to production (main) and staging
+  # Triggers upon push (includes PR, merge, squash or rebase) to these branches:
   push:
     branches:
       - main
