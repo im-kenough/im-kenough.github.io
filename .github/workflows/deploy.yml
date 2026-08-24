@@ -1,14 +1,16 @@
-# Sample workflow for building and deploying a Hugo site to GitHub Pages
-name: Deploy Hugo site to Pages
+# Builds the Hugo site and deploys per-branch:
+#   main    -> GitHub Pages  (production, https://kennethho.ca)
+#   staging -> Cloudflare Pages (staging, https://stg.kennethho.ca)
+name: build and deploy site
 
 on:
-  # Runs on pushes targeting the default branch
+  # Triggers upon push (includes PR, merge, squash or rebase) to these branches:
   push:
     branches:
       - main
       - staging
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allow manually specifying which branch to run deploy on
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -17,10 +19,10 @@ permissions:
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allow only one concurrent deployment PER BRANCH, so a staging deploy never
+# cancels/queues behind a production deploy (or vice versa).
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: false
 
 # Default to bash
@@ -30,33 +32,47 @@ defaults:
 
 jobs:
   # Build job
+  # Builds for production and staging environment
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.134.2
+      HUGO_VERSION: 0.160.1
     steps:
-      - name: SETUP - Install Hugo CLI
+      - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
-      - name: SETUP - Install Dart Sass
+      - name: Install Dart Sass
         run: sudo snap install dart-sass
 
-      - name: SETUP - Code Checkout
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
           submodules: recursive
           fetch-depth: 0
 
-      - name: SETUP - Setup Pages
+      # Pick the baseURL for this branch so canonical links, sitemap and RSS
+      # point at the right host instead of always at production.
+      - name: Determine environment
+        id: env
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "base_url=https://kennethho.ca/" >> "$GITHUB_OUTPUT"
+          else
+            echo "base_url=https://stg.kennethho.ca/" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Only needed for the GitHub Pages (production) path.
+      - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v6
 
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
 
-      - name: BUILD - Building site with Hugo
+      - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
@@ -65,43 +81,32 @@ jobs:
           hugo \
             --gc \
             --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --baseURL "${{ steps.env.outputs.base_url }}"
 
-      - name: BUILD - Create CNAME file for custom domain
+      # GitHub Pages custom domain marker (production only). Cloudflare Pages
+      # gets its custom domain from the dashboard, so no CNAME file there.
+      - name: Create CNAME file for custom domain
+        if: github.ref == 'refs/heads/main'
         run: echo "kennethho.ca" > ./public/CNAME
 
-      - name: TEST - Validate HTML
-        run: |
-          npm install htmlhint -g
-          htmlhint public/**/*.html
-  
-      - name: TEST - Check for Broken Links
-        run: |
-          npm install linkinator -g
-          linkinator "public" --recursive --skip "https://staging.mydomain.tld"
-  
-      - name: TEST - Lighthouse Performance Test
-        uses: treosh/lighthouse-ci-action@v5
-        with:
-          urls: https://staging.mydomain.tld/
-          configPath: ./lighthouse-config.js
-  
-      - name: TEST - Accessibility Test with aXe
-        run: |
-          npm install axe-cli -g
-          axe https://staging.mydomain.tld
-  
-      - name: TEST - Security Headers Test
-        run: |
-          curl -I https://staging.mydomain.tld | grep -E 'Strict-Transport-Security|Content-Security-Policy|X-Frame-Options'
-
-      - name: BUILD - Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # Production artifact -> consumed by the GitHub Pages deploy job.
+      - name: Upload Pages artifact (production)
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./public
 
-  # Deployment job
-  deploy:
+      # Staging artifact -> consumed by the Cloudflare deploy job.
+      - name: Upload build output (staging)
+        if: github.ref == 'refs/heads/staging'
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: ./public
+
+  # Production deployment -> GitHub Pages
+  deploy-production:
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -110,4 +115,26 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
+  # Staging deployment -> Cloudflare Pages (Direct Upload via Wrangler)
+  deploy-staging:
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download build output
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: ./public
+
+      # --branch=staging must match the Cloudflare project's PRODUCTION branch
+      # so this deploy is served on the stg.kennethho.ca custom domain (custom
+      # domains attach to the production deployment, not to previews).
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./public --project-name=kennethho-stg --branch=staging

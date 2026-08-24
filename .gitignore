@@ -14,6 +14,7 @@ Thumbs.db
 # Local Hugo server logs
 hugo_stats.json
 hugo_cache/
+.hugo-server.log
 
 # Temporary files created by editors
 *.swp

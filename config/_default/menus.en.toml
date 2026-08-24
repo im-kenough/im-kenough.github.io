@@ -27,6 +27,11 @@
   url = "https://github.com/im-kenough"
   weight = 20
 
+[[main]]
+  name = "DineSafeViz"
+  url = "https://dinesafeviz.com"
+  weight = 30
+
 #[[main]]
 #  name = "Parent"
 #  weight = 20
