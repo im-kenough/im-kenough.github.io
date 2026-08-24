@@ -19,3 +19,6 @@ Thumbs.db
 
 # Subagent-driven-development workspace (git-ignored scratch)
 /.superpowers/
+
+# Superpowers planning artifacts (specs/plans) — kept local, not committed
+/docs/superpowers/
