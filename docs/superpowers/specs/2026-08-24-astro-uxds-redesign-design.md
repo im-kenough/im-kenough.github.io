@@ -41,10 +41,14 @@ is not used.
 
 ## Decisions (locked)
 
-1. **Delivery: fully vendored ("Option A").** The Astro UXDS JS bundle, CSS, and
-   Roboto fonts are downloaded once at a pinned version and committed under
-   `src/vendor/`. No CDN, no npm install, no build. Rendering depends on nothing
-   external.
+1. **Delivery: fully vendored ("Option A"), used-chunks-only.** The Astro UXDS
+   library is pinned at **v8.0.0**. Its self-contained lazy-loading bundle is
+   ~1,017 JS files (one per component in the whole library); the page only uses a
+   handful. So we vendor the CSS, the ESM entry, the shared runtime chunk(s), and
+   **only the component chunk files the page actually requests at runtime** (~15-30
+   files), plus Roboto fonts — all committed under `src/vendor/`. No CDN, no npm
+   install, no build, no bundler. Rendering depends on nothing external. Adding a
+   new `rux-*` component later requires vendoring its chunk (documented).
 2. **Visual direction: Astro components over the LCARS backdrop.** Keep the
    existing `lcars0` space image as the page background; build all UI (cards,
    buttons, banner) from Astro UXDS components and tokens.
@@ -102,19 +106,21 @@ Content parity with the current site:
 
 ### Vendored library
 
-Downloaded from the published `@astrouxds/astro-web-components` package at a
-pinned version:
+Downloaded from `@astrouxds/astro-web-components@8.0.0`:
 
 - `astro-web-components.css` — base styles + design tokens (dark by default).
-- `astro-web-components.esm.js` + its lazy-loaded chunk files — self-registers
-  the `rux-*` custom elements when loaded as a module.
+- `astro-web-components.esm.js` — the ESM entry that self-registers `rux-*`
+  custom elements when loaded as a module.
+- The shared runtime chunk(s) plus only the `p-*.entry.js` component chunks the
+  page requests at runtime (discovered by loading the page against a full copy and
+  recording the network requests). ~15-30 files total.
 - Roboto `.woff2` for weights **300, 400, 500, 700**, referenced by
   `src/styles/fonts.css` (replacing the design system's default Google Fonts
   link so nothing is fetched externally).
 
-The pinned version is recorded in `README.md`. Updating = replace the folder with
-a newer release and bump the noted version. The folder is labelled as generated /
-do-not-edit.
+The pinned version (8.0.0) is recorded in `README.md`. Updating = re-run the
+vendoring procedure for the new release and bump the noted version. The folder is
+labelled as generated / do-not-edit.
 
 ### SECRET banner (per-branch stamp)
 
@@ -166,9 +172,12 @@ hosts, same URLs.
 
 ## Risks & trade-offs
 
-- **Vendored file sprawl:** the lazy-loading bundle is ~dozens of small files.
-  Accepted as the cost of full self-containment; quarantined under
+- **Vendored file sprawl:** kept to ~15-30 files by vendoring only the chunks the
+  page loads (the full bundle is ~1,017 files). Quarantined under
   `src/vendor/astro/` and never hand-edited.
+- **Adding a component later:** a new `rux-*` element needs its chunk vendored, or
+  it silently won't render. Mitigated by documenting the vendoring procedure and
+  by a verification step that fails if the page requests a non-vendored chunk.
 - **Manual library updates:** no Dependabot on the submodule anymore. Mitigated
   by recording the pinned version and keeping updates to a folder swap; a
   Dependabot/script automation can be added later if desired.
