@@ -11,7 +11,7 @@ title = "Kenneth Ho"
   dateFormat = "2 January 2006"
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
-  description = "Cloud Systems Administrator and DevOps Analyst with 11+ years of experience keeping mission-critical systems running." # meta in preview description
+  description = "Cloud Systems Administrator and DevOps Analyst with 10+ years of experience keeping mission-critical systems running." # meta in preview description
   # copyright = "Copy, _right?_ :thinking_face:"
 
 [params.author]
@@ -20,7 +20,7 @@ title = "Kenneth Ho"
   image = "img/kenough-400x400.webp"
   imageQuality = 96
 
-  headline = "Cloud Systems Administrator | DevOps Analyst<br>11+ yrs keeping mission-critical systems running"
+  headline = "Cloud Systems Administrator | DevOps Analyst<br>10+ yrs keeping mission-critical systems running"
 #  bio = "This is a bio text section"
   links = [
 #     { email = "mailto:hello@your_domain.com" },
