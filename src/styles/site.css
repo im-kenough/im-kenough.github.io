@@ -1,16 +1,19 @@
 /* Layout + LCARS backdrop over Astro UXDS tokens. Dark mode only. */
-html, body { margin: 0; height: 100%; }
+html, body { margin: 0; }
 body {
-  min-height: 100%;
+  min-height: 100dvh;
   display: flex; flex-direction: column;
   font-family: "Roboto", system-ui, sans-serif;
   color: #fff;
-  background: #000 url("../img/lcars0-1377x1080.webp") center / cover no-repeat fixed;
+  background: #000;
 }
-/* Readability scrim so cards sit on the busy backdrop. */
+/* Fixed backdrop + readability scrim in one layer. Painting the image on this
+   position:fixed pseudo-element keeps it stationary like background-attachment:
+   fixed did, but without the whole-viewport repaint on every scroll frame. */
 body::before {
-  content: ""; position: fixed; inset: 0;
-  background: rgba(0, 0, 0, 0.55); z-index: 0;
+  content: ""; position: fixed; inset: 0; z-index: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+              url("../img/lcars0-1377x1080.webp") center / cover no-repeat;
 }
 .wrap {
   position: relative; z-index: 1;
@@ -18,8 +21,10 @@ body::before {
   width: 100%; max-width: 34rem; margin: 0 auto; padding: 3rem 1.25rem;
   display: flex; flex-direction: column; gap: 1.5rem; align-items: center;
 }
+/* Dimensions come from the img width/height attributes (they reserve space
+   before load, avoiding layout shift); only styling lives here. */
 .avatar {
-  width: 128px; height: 128px; border-radius: 9999px;
+  border-radius: 50%;
   object-fit: cover; border: 2px solid rgba(255,255,255,0.25);
 }
 .identity { text-align: center; }
@@ -41,12 +46,8 @@ rux-card { width: 100%; }
 .btn-link:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 4px; }
 a[slot="footer"].btn-link { display: flex; width: 100%; }
 
-/* SECRET banner: present in markup, revealed only when CI stamps staging. */
+/* SECRET banner: present in markup, revealed and pinned only when CI stamps staging. */
 .banner-marking { display: none; }
-:root[data-env="staging"] .banner-marking { display: block; }
-:root[data-env="staging"] .banner-top {
-  position: sticky; top: 0; z-index: 2;
-}
-:root[data-env="staging"] .banner-bottom {
-  position: sticky; bottom: 0; z-index: 2;
-}
+:root[data-env="staging"] .banner-marking { display: block; position: sticky; z-index: 2; }
+:root[data-env="staging"] .banner-top    { top: 0; }
+:root[data-env="staging"] .banner-bottom { bottom: 0; }
