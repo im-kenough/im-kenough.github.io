@@ -22,7 +22,7 @@
 </head>
 <body>
   <!-- SECRET banner: revealed only when the deploy is staging (CI stamps data-env); hidden in production. -->
-  <rux-classification-marking classification="secret" class="banner-marking banner-top"></rux-classification-marking>
+  <rux-classification-marking classification="secret" label="SECRET // STAGING" class="banner-marking banner-top"></rux-classification-marking>
 
   <main class="wrap">
     <img class="avatar" src="/img/kenough-400x400.webp"
@@ -68,7 +68,7 @@
     </rux-card>
   </main>
 
-  <rux-classification-marking classification="secret" class="banner-marking banner-bottom"></rux-classification-marking>
+  <rux-classification-marking classification="secret" label="SECRET//STAGING" class="banner-marking banner-bottom"></rux-classification-marking>
 
   <!-- Umami web analytics (non-critical; page renders fully without it) -->
   <script defer src="https://cloud.umami.is/script.js" data-website-id="11bfaafe-2cac-4452-9444-fce6e771a76a"></script>

@@ -139,6 +139,8 @@ only on staging. It's controlled by the `data-env` attribute on the `<html>`
 tag, which the staging deploy stamps automatically. You don't toggle it by
 hand. For how that works, see the CI/CD reference.
 
+To customize the text shown on the banner, you can add a `label` attribute to the `<rux-classification-marking>` elements in `src/index.html` (e.g., `label="SECRET // STAGING"`).
+
 ## Previewing your changes
 
 Before you deploy, preview the page locally to see your edits. For the steps,
