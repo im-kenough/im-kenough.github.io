@@ -62,6 +62,14 @@ Because sections are driven by labels, notes only categorize pull requests that
 carry labels. Historical pull requests merged before this workflow existed are
 mostly unlabeled and appear under **Other Changes** if included in a range.
 
+## Pull requests with multiple labels
+
+A pull request is listed once, under the first section in the table above whose
+labels it matches, and it is never duplicated across sections. Because the table
+order sets precedence, a pull request labeled both `security` and `fix` appears
+only under **Security**. The `skip-changelog` exclusion is the exception: it
+drops the pull request entirely, regardless of any other label it carries.
+
 ## Draft, not published
 
 The workflow creates the release as a **draft**. A draft is visible only to
