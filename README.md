@@ -8,7 +8,7 @@ This is a static single-page site with no build step. The page uses pinned [Astr
 
 ## Tech stack
 
-- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components, vendored at `@astrouxds/astro-web-components@8.0.0` under `src/vendor/astro/`.
+- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components.
 - **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`).
 - **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain, with DNS and [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed at [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/).
 - **Analytics:** [Cloudflare Web Analytics](https://www.cloudflare.com/en-ca/web-analytics/) and [Umami](https://umami.is/).
