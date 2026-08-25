@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-env="staging">
+<html lang="en" data-env="production">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -67,6 +67,15 @@
       </a>
     </rux-card>
   </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footer-year">2026</span> Kenneth Ho</p>
+  </footer>
+  <script>
+    // Keep the copyright year current without a build step. The hardcoded 2026
+    // above is the no-JS fallback; this overwrites it with the real year.
+    document.getElementById("footer-year").textContent = new Date().getFullYear();
+  </script>
 
   <rux-classification-marking classification="secret" label=" // STAGING" class="banner-marking banner-bottom"></rux-classification-marking>
 
