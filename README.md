@@ -35,6 +35,6 @@ Goal: Create a personal site that minimizes dependencies with reasonable securit
   - Fonts and CSS hosted locally, so the site renders without external CDNs.
   - Only the required [Astro UXDS](https://astrouxds.com/) components are vendored.
   - Migrated off the Hugo static site generator, dropping the build step and unused dependencies.
-  - Keep "staging" banner in html rather than inject it during deployment to simplify github actions
+  - Keep "staging" banner in html and change a flag during deployment with Github Actions
 - **Operational excellence**
   - Deploy a Staging environment to test site changes and Dependabot updates before production deployment, minimizing disruption.

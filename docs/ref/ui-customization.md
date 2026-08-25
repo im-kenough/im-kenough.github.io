@@ -52,13 +52,13 @@ The LCARS background image sits behind a black veil that keeps text readable.
 The veil is the pair of `rgba` values on the `body::before` rule:
 
 ```css
-background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
             url("../img/lcars0-1377x1080.webp") center / cover no-repeat;
 ```
 
-The `0.55` is the veil's opacity: `0` shows the image at full brightness and
-`1` is solid black. Raise it toward `0.65` for a darker backdrop and higher
-text contrast; lower it toward `0.45` to show more of the artwork.
+The `0.75` is the veil's opacity: `0` shows the image at full brightness and
+`1` is solid black. Raise it toward `0.85` for a darker backdrop and higher
+text contrast; lower it toward `0.6` to show more of the artwork.
 
 <!-- prettier-ignore -->
 > [!NOTE]
@@ -139,7 +139,9 @@ only on staging. It's controlled by the `data-env` attribute on the `<html>`
 tag, which the staging deploy stamps automatically. You don't toggle it by
 hand. For how that works, see the CI/CD reference.
 
-To customize the text shown on the banner, you can add a `label` attribute to the `<rux-classification-marking>` elements in `src/index.html` (e.g., `label="SECRET // STAGING"`).
+To customize the text shown on the banner, edit the `label` attribute on the
+two `<rux-classification-marking>` elements in `src/index.html` (currently
+`label="SECRET//STAGING"`). Keep both the top and bottom markings in sync.
 
 ## Previewing your changes
 
