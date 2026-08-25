@@ -4,7 +4,7 @@ Welcome to [`kennethho.ca`](https://kennethho.ca), the repository for my persona
 
 It's a portfolio landing page linking to my [GitHub](https://github.com/im-kenough), [LinkedIn](https://www.linkedin.com/in/kenneth-yyz), and [DineSafeViz](https://github.com/im-kenough/DineSafeViz) project.
 
-This is a static single-page site with no build step. The page uses pinned [Astro UXDS](https://astrouxds.com/) Web Components and is deployed via GitHub Actions: `main` publishes to GitHub Pages, `staging` to Cloudflare Pages.
+This is a static single-page site with no build step. The page uses pinned [Astro UXDS](https://astrouxds.com/) Web Components.
 
 ## Tech stack
 
