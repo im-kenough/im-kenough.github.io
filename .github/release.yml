@@ -1,0 +1,53 @@
+# Configures GitHub's built-in "automatically generated release notes".
+# Read by the GitHub API whenever a release is created with generated notes
+# (the release workflow, the "Generate release notes" button, or
+# `gh release create --generate-notes`). PRs merged since the previous tag are
+# grouped into the sections below by their labels. Labels are aligned with
+# Conventional Commit types (plus `security`). See docs/ref/release.md.
+#
+# Order matters: a PR lands in the FIRST section whose labels it carries, so
+# Security sits at the top and wins for a PR labeled both `security` and `fix`.
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: 🔒 Security
+      labels:
+        - security
+    - title: 🚀 Features
+      labels:
+        - feat
+    - title: 🐛 Fixes
+      labels:
+        - fix
+    - title: ⚡ Performance
+      labels:
+        - perf
+    - title: 🎨 UI & Styling
+      labels:
+        - ui
+        - style
+    - title: 📝 Documentation
+      labels:
+        - docs
+    - title: ♻️ Refactoring
+      labels:
+        - refactor
+    - title: 🧰 CI/CD & Build
+      labels:
+        - ci
+        - build
+    - title: ⬆️ Dependencies
+      labels:
+        - dependencies
+    - title: 🧹 Chores
+      labels:
+        - chore
+        - test
+        - revert
+    - title: 📦 Other Changes
+      # Catch-all: any merged PR not matched above still appears here, so
+      # nothing is silently dropped from the notes.
+      labels:
+        - "*"

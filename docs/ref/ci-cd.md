@@ -63,4 +63,6 @@ Cloudflare is authoritative DNS for `kennethho.ca`.
 ## Related
 
 - Cloudflare Pages setup: [`../how-to/setup/cloudflare-pages.md`](../how-to/setup/cloudflare-pages.md)
-- Workflow: [`../../.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml)
+- Deploy workflow: [`../../.github/workflows/deploy.yml`](../../.github/workflows/deploy.yml)
+- Releases: [`release.md`](release.md)
+- Create a release: [`../how-to/operations/create-release.md`](../how-to/operations/create-release.md)

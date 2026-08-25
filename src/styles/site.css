@@ -39,13 +39,30 @@ body::before {
   width: auto; height: auto;
   font-size: 1rem;
   padding-block: 0.3em; padding-inline: 0.9em;
+  /* Statusless tags get an .is-undefined class in shadow DOM: grey fill + an
+     inset "glow" box-shadow. These tokens are read via var() across the shadow
+     boundary, so redefining them here recolours the internals. Light pastel
+     purple fill with dark-purple text, and the glow ring switched off. */
+  --color-palette-grey-800: #c9c5ed;        /* fill (Astro purple-200) */
+  --color-palette-neutral-000: #000;        /* text (black) */
+  --tag-shadow-inner-unknown: none;         /* remove the glowing inner ring */
+  /* The .is-undefined border reads a token we can't reach; a document rule on
+     the host outranks the shadow :host rule, so set the colour directly to
+     match the fill and erase the leftover grey ring. */
+  border-color: #c9c5ed;
 }
 rux-card { width: 100%; }
 rux-card p { margin: 0; font-size: 1.05rem; line-height: 1.6; }
+/* Button labels default to weight 400 at 1rem (thin, hard to read). Bump both
+   tokens — read across the shadow boundary — so all rux-buttons (incl. secondary). */
+rux-button {
+  --font-control-body-1-font-weight: 700;
+  --font-control-body-1-font-size: 1.0625rem;
+}
 /* Anchors wrapping rux-button: reset link chrome, no layout shift. */
 .btn-link { display: inline-flex; text-decoration: none; color: inherit; }
 .btn-link:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 4px; }
-a[slot="footer"].btn-link { display: flex; width: 100%; }
+a[slot="footer"].btn-link { display: flex; justify-content: center; }
 
 /* Footer sits below the content column. .wrap's flex-grow pushes it to the
    bottom on short pages; z-index lifts it above the fixed backdrop. */

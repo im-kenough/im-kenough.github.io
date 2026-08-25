@@ -11,7 +11,7 @@ Static single-page site, no build step. The page is built directly from vendored
 - **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components, vendored at `@astrouxds/astro-web-components@8.0.0` under `src/vendor/astro/`
 - **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`)
 - **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain, DNS and [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed at [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/)
-- **Analytics:** [Cloudflare Web Analytics](https://www.cloudflare.com/en-ca/web-analytics/) and [Umami](https://umami.is/). Umami is the only tag in the page source; Cloudflare's is injected at the proxy layer
+- **Analytics:** [Cloudflare Web Analytics](https://www.cloudflare.com/en-ca/web-analytics/) and [Umami](https://umami.is/).
 - **CI/CD:** [GitHub Actions](https://docs.github.com/en/actions)
 
 ## Features
