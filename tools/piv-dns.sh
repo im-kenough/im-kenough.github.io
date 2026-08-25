@@ -1,8 +1,8 @@
 #!/bin/bash
 
 ## Uncomment just one domain to test against
-# domain=kennethho.ca
-domain=stg.kennethho.ca
+domain=kennethho.ca
+# domain=stg.kennethho.ca
 
 sep="────────────────────────────────────────"
 
