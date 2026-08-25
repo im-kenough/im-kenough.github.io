@@ -39,10 +39,14 @@ body::before {
   width: auto; height: auto;
   font-size: 1rem;
   padding-block: 0.3em; padding-inline: 0.9em;
-  /* Statusless tags get an .is-undefined class in shadow DOM: grey fill + an
-     inset "glow" box-shadow. These tokens are read via var() across the shadow
-     boundary, so redefining them here recolours the internals. Light pastel
-     purple fill with dark-purple text, and the glow ring switched off. */
+  /* KNOWN DEBT: rux-tag exposes no tag-color theming API in this vendored
+     build, so we recolour its shadow-DOM internals by overriding *global*
+     Astro palette tokens (read via var() across the shadow boundary). This is
+     the wrong altitude — a design-system-wide variable used as a tag-local
+     knob — and may break on any Astro upgrade. src/vendor/astro/ is pinned, so
+     upgrades are deliberate; re-verify the tags whenever you bump it.
+     Statusless tags carry an .is-undefined class: grey fill + inset "glow"
+     box-shadow. We want a light pastel-purple fill, dark-purple text, no glow. */
   --color-palette-grey-800: #c9c5ed;        /* fill (Astro purple-200) */
   --color-palette-neutral-000: #000;        /* text (black) */
   --tag-shadow-inner-unknown: none;         /* remove the glowing inner ring */
@@ -74,8 +78,11 @@ a[slot="footer"].btn-link { display: flex; justify-content: center; }
 }
 .site-footer p { margin: 0; }
 
-/* SECRET banner: present in markup, revealed and pinned only when CI stamps staging. */
+/* SECRET banner: present in markup, revealed and pinned only when index.html's
+   inline script sets data-env="staging" from the stg.* hostname. */
 .banner-marking { display: none; }
+/* Offsets are inert until the marking becomes sticky, so only the reveal
+   itself needs the staging guard. */
+.banner-top    { top: 0; }
+.banner-bottom { bottom: 0; }
 :root[data-env="staging"] .banner-marking { display: block; position: sticky; z-index: 2; }
-:root[data-env="staging"] .banner-top    { top: 0; }
-:root[data-env="staging"] .banner-bottom { bottom: 0; }
