@@ -29,16 +29,25 @@ previous tag. Each entry links the pull request and credits its author. No
 build step or third-party action is involved.
 
 Grouping into sections is controlled by
-[`../../.github/release.yml`](../../.github/release.yml). Each merged pull
-request is placed in the first section whose labels it matches.
+[`../../.github/release.yml`](../../.github/release.yml). Labels are aligned
+with [Conventional Commit](https://www.conventionalcommits.org/) types, plus a
+`security` label. Each merged pull request is placed in the first section whose
+labels it matches, so order matters: a pull request labeled both `security` and
+`fix` lands under **Security**.
 
-| Section              | Pull request labels             |
-| -------------------- | ------------------------------- |
-| 🚀 Features          | `feature`, `enhancement`        |
-| 🐛 Fixes             | `bug`, `fix`                    |
-| 🎨 UI                | `ui`                            |
-| 🧰 CI/CD & Chores    | `ci`, `chore`, `dependencies`   |
-| 📝 Other Changes     | any other label (catch-all)     |
+| Section            | Pull request labels        |
+| ------------------ | -------------------------- |
+| 🔒 Security        | `security`                 |
+| 🚀 Features        | `feat`                     |
+| 🐛 Fixes           | `fix`                      |
+| ⚡ Performance     | `perf`                     |
+| 🎨 UI & Styling    | `ui`, `style`              |
+| 📝 Documentation   | `docs`                     |
+| ♻️ Refactoring     | `refactor`                 |
+| 🧰 CI/CD & Build   | `ci`, `build`              |
+| ⬆️ Dependencies    | `dependencies`             |
+| 🧹 Chores          | `chore`, `test`, `revert`  |
+| 📦 Other Changes   | any other label (catch-all) |
 
 Two labels are special:
 

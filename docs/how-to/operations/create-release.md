@@ -17,18 +17,27 @@ For what the tags mean and how labels map to note sections, see
 
 ## Label the pull requests
 
-Notes are grouped by pull request label. Apply one of the recognized labels to
-each pull request that will be part of the release:
+Notes are grouped by pull request label. Labels follow
+[Conventional Commit](https://www.conventionalcommits.org/) types, plus a
+`security` label. Apply one of the recognized labels to each pull request that
+will be part of the release:
 
-- `feature` or `enhancement` for new content or features.
-- `bug` or `fix` for fixes.
-- `ui` for visual or layout changes.
-- `ci`, `chore`, or `dependencies` for tooling, pipeline, and dependency
-  updates.
+- `security` for security fixes and hardening.
+- `feat` for new content or features.
+- `fix` for bug fixes.
+- `perf` for performance improvements.
+- `ui` or `style` for visual, layout, or styling changes.
+- `docs` for documentation changes.
+- `refactor` for restructuring that doesn't change behavior.
+- `ci` or `build` for pipeline and tooling changes.
+- `dependencies` for dependency updates (Dependabot applies this
+  automatically).
+- `chore`, `test`, or `revert` for other maintenance.
 - `skip-changelog` to keep a pull request out of the notes entirely.
 
-An unlabeled pull request still appears under **Other Changes**, so labeling is
-about tidiness, not inclusion.
+A pull request lands in the section of its first matching label, so `security`
+takes precedence over the others. An unlabeled pull request still appears under
+**Other Changes**, so labeling is about tidiness, not inclusion.
 
 <!-- prettier-ignore -->
 > [!TIP]
