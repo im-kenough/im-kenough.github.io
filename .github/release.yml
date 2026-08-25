@@ -1,0 +1,31 @@
+# Configures GitHub's built-in "automatically generated release notes".
+# Read by the GitHub API whenever a release is created with generated notes
+# (the release workflow, the "Generate release notes" button, or
+# `gh release create --generate-notes`). PRs merged since the previous tag are
+# grouped into the sections below by their labels. See docs/ref/release.md.
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: 🚀 Features
+      labels:
+        - feature
+        - enhancement
+    - title: 🐛 Fixes
+      labels:
+        - bug
+        - fix
+    - title: 🎨 UI
+      labels:
+        - ui
+    - title: 🧰 CI/CD & Chores
+      labels:
+        - ci
+        - chore
+        - dependencies
+    - title: 📝 Other Changes
+      # Catch-all: any merged PR not matched above still appears here, so
+      # nothing is silently dropped from the notes.
+      labels:
+        - "*"
