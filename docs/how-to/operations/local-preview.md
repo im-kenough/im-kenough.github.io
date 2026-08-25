@@ -2,9 +2,15 @@
 
 The site is static — no build. Serve the `src/` folder directly:
 
-    python3 -m http.server -d src 8000
+```bash
+python3 -m http.server -d src 8000
+```
 
-Then open <http://localhost:8000>.
+Then open the URL.
+```bash
+http://localhost:8000
+```
+
 
 ## Verifying zero external dependencies
 
@@ -13,12 +19,49 @@ chrome-devtools MCP `list_network_requests`). Every request must go to
 `localhost` except the optional Umami analytics tag (`cloud.umami.is`).
 Blocking Umami must not change how the page renders.
 
-## Verifying the SECRET banner
+## Previewing production vs. staging
 
-The banner is gated on the `<html data-env="...">` attribute:
-- `data-env="production"` (default in the committed file): no banner.
-- `data-env="staging"`: SECRET banners at top and bottom.
+Production and staging serve the exact same files. The only difference is the
+`data-env` attribute on the `<html>` tag in `src/index.html`, which the CSS uses
+to gate the SECRET banner:
 
-To preview the staging state locally, temporarily edit the attribute to
-`staging` (CI does this substitution automatically on the staging branch —
-do not commit the change).
+- `data-env="production"` (the committed default): no banner. This is what
+  `kennethho.ca` shows.
+- `data-env="staging"`: SECRET banners pinned at the top and bottom. This is
+  what `stg.kennethho.ca` shows.
+
+You don't need two servers to see both states. Keep the server from the previous
+section running and flip the attribute in place.
+
+### View the production state
+
+The committed file is already in the production state, so just open the local
+URL. You'll see the page with no banner.
+
+### View the staging state
+
+1. Flip the attribute to `staging`. Run this from the repository root in a second
+   terminal:
+
+   ```bash
+   sed -i 's/data-env="production"/data-env="staging"/' src/index.html
+   ```
+
+   This is the same substitution the staging deploy runs in CI, so the local
+   result matches `stg.kennethho.ca`.
+
+2. Reload the local URL in your browser. The SECRET banners now appear at the top
+   and bottom of the page.
+
+3. Revert the change when you're done so you don't commit the staging state:
+
+   ```bash
+   git checkout src/index.html
+   ```
+
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> Never commit `src/index.html` with `data-env="staging"`. Production reads the
+> committed value directly, so a stray `staging` would show the SECRET banner on
+> the live site. CI flips the attribute at deploy time, so the file must stay
+> `production` in the repository.
