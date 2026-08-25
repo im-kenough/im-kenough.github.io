@@ -23,13 +23,14 @@
   <link rel="icon" href="/img/favicon.ico" sizes="any" />
   <link rel="manifest" href="/img/site.webmanifest" />
 
+  <link rel="preload" as="image" href="/img/lcars0-1377x1080.webp" type="image/webp" />
   <link rel="stylesheet" href="/vendor/astro/astro-web-components.css" />
   <link rel="stylesheet" href="/styles/fonts.css" />
   <link rel="stylesheet" href="/styles/site.css" />
   <script type="module" src="/vendor/astro/astro-web-components.esm.js"></script>
 </head>
 <body>
-  <!-- SECRET banner: revealed only when the deploy is staging (CI stamps data-env); hidden in production. -->
+  <!-- SECRET banner: revealed only on staging (the head script sets data-env from the stg.* hostname); hidden in production. -->
   <rux-classification-marking classification="secret" label=" // STAGING" class="banner-marking banner-top"></rux-classification-marking>
 
   <main class="wrap">

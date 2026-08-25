@@ -8,7 +8,7 @@ This is a static single-page site with no build step. The page uses pinned [Astr
 
 ## Tech stack
 
-- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components.
+- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components, vendored at `@astrouxds/astro-web-components@8.0.0` under `src/vendor/astro/`.
 - **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`).
 - **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain, with DNS and [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed at [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/).
 - **Analytics:** [Cloudflare Web Analytics](https://www.cloudflare.com/en-ca/web-analytics/) and [Umami](https://umami.is/).
@@ -35,6 +35,6 @@ Goal: Create a personal site that minimizes dependencies with reasonable securit
   - Fonts and CSS hosted locally, so the site renders without external CDNs.
   - Only the required [Astro UXDS](https://astrouxds.com/) components are vendored.
   - Migrated off the Hugo static site generator, dropping the build step and unused dependencies.
-  - Keep the staging banner in the HTML and toggle a flag during deployment with GitHub Actions.
+  - Keep the staging banner in the HTML and reveal it client-side from the `stg.*` hostname, so no build-time stamping is needed.
 - **Operational excellence**
   - Deploy a Staging environment to test site changes and Dependabot updates before production deployment, minimizing disruption.
