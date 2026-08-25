@@ -1,0 +1,42 @@
+# Drafts a GitHub Release with auto-generated notes when a version tag is
+# pushed. Categorization of PRs into sections is controlled by
+# `.github/release.yml`. See docs/how-to/operations/create-release.md.
+name: draft release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Existing tag to draft a release for (e.g. v1.2.0)"
+        required: true
+
+# Least privilege needed to create a release with the default token.
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  draft-release:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history + tags so the notes can diff against the previous tag.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Create a DRAFT release with notes generated from merged PRs. Draft
+      # means nothing is public until a human reviews and clicks Publish.
+      - name: Draft release with generated notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          gh release create "$TAG" \
+            --draft \
+            --title "$TAG" \
+            --generate-notes
