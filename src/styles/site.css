@@ -1,0 +1,64 @@
+/* Layout + LCARS backdrop over Astro UXDS tokens. Dark mode only. */
+html, body { margin: 0; }
+body {
+  min-height: 100dvh;
+  display: flex; flex-direction: column;
+  font-family: "Roboto", system-ui, sans-serif;
+  color: #fff;
+  background: #000;
+}
+/* Fixed backdrop + readability scrim in one layer. Painting the image on this
+   position:fixed pseudo-element keeps it stationary like background-attachment:
+   fixed did, but without the whole-viewport repaint on every scroll frame. */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+              url("../img/lcars0-1377x1080.webp") center / cover no-repeat;
+}
+.wrap {
+  position: relative; z-index: 1;
+  flex: 1 0 auto;
+  width: 100%; max-width: 34rem; margin: 0 auto; padding: 3rem 1.25rem;
+  display: flex; flex-direction: column; gap: 1.5rem; align-items: center;
+}
+/* Dimensions come from the img width/height attributes (they reserve space
+   before load, avoiding layout shift); only styling lives here. */
+.avatar {
+  border-radius: 50%;
+  object-fit: cover; border: 2px solid rgba(255,255,255,0.25);
+}
+.identity { text-align: center; }
+.identity h1 { margin: 0.5rem 0 0.35rem; font-size: 2.25rem; font-weight: 700; }
+.identity p  { margin: 0; font-size: 1.1rem; font-weight: 500; opacity: 0.95; line-height: 1.5; }
+.social { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+.social svg { width: 1.1em; height: 1.1em; vertical-align: -0.15em; margin-inline-end: 0.4em; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 1rem; }
+/* rux-tag defaults to a fixed 3.75rem placeholder box; size it to its label
+   and give inline padding that scales with the (larger) font. */
+.tags rux-tag {
+  width: auto; height: auto;
+  font-size: 1rem;
+  padding-block: 0.3em; padding-inline: 0.9em;
+}
+rux-card { width: 100%; }
+rux-card p { margin: 0; font-size: 1.05rem; line-height: 1.6; }
+/* Anchors wrapping rux-button: reset link chrome, no layout shift. */
+.btn-link { display: inline-flex; text-decoration: none; color: inherit; }
+.btn-link:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 4px; }
+a[slot="footer"].btn-link { display: flex; width: 100%; }
+
+/* Footer sits below the content column. .wrap's flex-grow pushes it to the
+   bottom on short pages; z-index lifts it above the fixed backdrop. */
+.site-footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 1.5rem 1.25rem;
+  font-size: 0.85rem; opacity: 0.7;
+}
+.site-footer p { margin: 0; }
+
+/* SECRET banner: present in markup, revealed and pinned only when CI stamps staging. */
+.banner-marking { display: none; }
+:root[data-env="staging"] .banner-marking { display: block; position: sticky; z-index: 2; }
+:root[data-env="staging"] .banner-top    { top: 0; }
+:root[data-env="staging"] .banner-bottom { bottom: 0; }

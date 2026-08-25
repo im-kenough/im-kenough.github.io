@@ -1,34 +1,40 @@
+# kennethho.ca
 
-# kennethho.ca - My personal website 🌐
+The repository for [`kennethho.ca`](https://kennethho.ca), my personal website.
 
-Welcome to the repository for [`kennethho.ca`](https://kennethho.ca), my personal website. The site serves as a professional portfolio landing page, linking to my [Github](https://github.com/im-kenough), [LinkedIn](https://www.linkedin.com/in/kenneth-yyz) page, and [DineSafeViz](https://github.com/im-kenough/DineSafeViz) project.
+It's a portfolio landing page linking to my [GitHub](https://github.com/im-kenough), [LinkedIn](https://www.linkedin.com/in/kenneth-yyz), and [DineSafeViz](https://github.com/im-kenough/DineSafeViz) project.
 
-## Project Overview 🚀
-This is a statically generated Hugo website using the Blowfish theme hosted on GitHub Pages and deployed automatically via GitHub Actions.
+Static single-page site, no build step. The page is built directly from vendored [Astro UXDS](https://astrouxds.com/) Web Components and deployed via GitHub Actions: `main` publishes to GitHub Pages, `staging` to Cloudflare Pages.
 
-It also uses a custom domain from Namecheap, with Cloudflare providing DDoS mitigation and proxying. Web analytics is monitored using Google Analytics, Cloudflare Web Analytics, and Umami.
+## Tech stack
 
-### Tech Stack ⚙️:
-
-- **Static Site Generator:** [Hugo](https://gohugo.io/)
-- **Theme:** [Blowfish](https://themes.gohugo.io/themes/blowfish/)
-- **Hosting:** [GitHub Pages](https://pages.github.com/)
-- **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain with DNS records & [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed to [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/)
-- **Web Analytics:** [Cloudflare](https://www.cloudflare.com/en-ca/web-analytics/) Web Analytics, [Umami](https://umami.is/) Web Analytics
+- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components, vendored at `@astrouxds/astro-web-components@8.0.0` under `src/vendor/astro/`
+- **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`)
+- **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain, DNS and [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed at [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/)
+- **Analytics:** [Cloudflare Web Analytics](https://www.cloudflare.com/en-ca/web-analytics/) and [Umami](https://umami.is/). Umami is the only tag in the page source; Cloudflare's is injected at the proxy layer
 - **CI/CD:** [GitHub Actions](https://docs.github.com/en/actions)
 
-## Features ✨
+## Features
 
-- **Responsive Design:** Works on all devices and screen sizes. 📱💻
-- **Performant:** ⚡
-  - **Benchmarking:** High scores on [PageSpeed](https://pagespeed.web.dev/) tests mean less data usage for users and faster load times.
-  - **Caching:** Faster load times by caching static objects on Cloudflare's [CDN](https://www.cloudflare.com/en-ca/application-services/products/cdn/) 🚀
-- **Security:** 🔒
-  - **DDoS Mitigation, DNS proxy:** Secured using Cloudflare’s DDoS protection and proxying services.
-  - **WAF:** Uses Cloudflare to issue HTTPs challenge/blocking of suspicious connections 🚧
-- **Automation:** 🤖
-  - **GitHub Actions:** Automated [build and deployment](.github/workflows/deploy.yml) pipeline via GitHub Actions.
-- **SEO Optimized:** Proper metadata and [robots.txt](layouts/robots.txt) configuration for SEO. 🔍
-  - **Branding:** [kennethho.ca](https://kennethho.ca) custom domain from Namecheap.
+- **Responsive:** Works across devices and screen sizes.
+- **Performant:** High [PageSpeed](https://pagespeed.web.dev/) scores for fast loads and low data usage, with static objects cached on Cloudflare's [CDN](https://www.cloudflare.com/en-ca/application-services/products/cdn/).
+- **Security:**
+  - **DNS proxy:** Origin hidden behind Cloudflare's reverse proxy.
+  - **DDoS mitigation:** Cloudflare's DDoS protection.
+  - **WAF:** Cloudflare issues HTTPS challenges and blocks suspicious connections.
+  - **DNSSEC:** DNS responses signed to prevent spoofing.
+- **Automated deploys:** Pushes ship through a GitHub Actions [pipeline](.github/workflows/deploy.yml).
+- **Staging environment:** The `staging` branch deploys to [stg.kennethho.ca](https://stg.kennethho.ca) for previewing changes before production. Staging carries a SECRET classification banner so it's never mistaken for the live site.
+- **SEO:** Metadata and [robots.txt](src/robots.txt) tuned for search, on the [kennethho.ca](https://kennethho.ca) custom domain.
 
-- **Analytics:** Integrated with Google Analytics, Cloudflare Web Analytics, and Umami for web traffic insights 📊.
+## Design decisions
+
+Goal: Create a personal site that minimizes dependencies with reasonable security.
+
+- **Minimal dependencies**
+  - Fonts and CSS hosted locally, so the site renders without external CDNs.
+  - Only the required [Astro UXDS](https://astrouxds.com/) components are vendored.
+  - Migrated off the Hugo static site generator, dropping the build step and unused dependencies.
+  - Keep "staging" banner in html and change a flag during deployment with Github Actions
+- **Operational excellence**
+  - Deploy a Staging environment to test site changes and Dependabot updates before production deployment, minimizing disruption.
