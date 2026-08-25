@@ -1,18 +1,18 @@
 # kennethho.ca
 
-The repository for [`kennethho.ca`](https://kennethho.ca), my personal website.
+Welcome to [`kennethho.ca`](https://kennethho.ca), the repository for my personal website.
 
 It's a portfolio landing page linking to my [GitHub](https://github.com/im-kenough), [LinkedIn](https://www.linkedin.com/in/kenneth-yyz), and [DineSafeViz](https://github.com/im-kenough/DineSafeViz) project.
 
-Static single-page site, no build step. The page is built directly from vendored [Astro UXDS](https://astrouxds.com/) Web Components and deployed via GitHub Actions: `main` publishes to GitHub Pages, `staging` to Cloudflare Pages.
+This is a static single-page site with no build step. The page uses pinned [Astro UXDS](https://astrouxds.com/) Web Components and is deployed via GitHub Actions: `main` publishes to GitHub Pages, `staging` to Cloudflare Pages.
 
 ## Tech stack
 
-- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components, vendored at `@astrouxds/astro-web-components@8.0.0` under `src/vendor/astro/`
-- **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`)
-- **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain, DNS and [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed at [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/)
+- **UI components:** [Astro UXDS](https://astrouxds.com/) Web Components.
+- **Hosting:** [GitHub Pages](https://pages.github.com/) (production, `main`), [Cloudflare Pages](https://pages.cloudflare.com/) (staging, `staging`).
+- **DNS:** Custom [Namecheap](https://www.namecheap.com/) domain, with DNS and [DNSSEC](https://dnssec-analyzer.verisignlabs.com/kennethho.ca) pointed at [Cloudflare](https://www.cloudflare.com/en-ca/learning/cdn/glossary/reverse-proxy/).
 - **Analytics:** [Cloudflare Web Analytics](https://www.cloudflare.com/en-ca/web-analytics/) and [Umami](https://umami.is/).
-- **CI/CD:** [GitHub Actions](https://docs.github.com/en/actions)
+- **CI/CD:** [GitHub Actions](https://docs.github.com/en/actions).
 
 ## Features
 
@@ -35,6 +35,6 @@ Goal: Create a personal site that minimizes dependencies with reasonable securit
   - Fonts and CSS hosted locally, so the site renders without external CDNs.
   - Only the required [Astro UXDS](https://astrouxds.com/) components are vendored.
   - Migrated off the Hugo static site generator, dropping the build step and unused dependencies.
-  - Keep "staging" banner in html and change a flag during deployment with Github Actions
+  - Keep the staging banner in the HTML and toggle a flag during deployment with GitHub Actions.
 - **Operational excellence**
   - Deploy a Staging environment to test site changes and Dependabot updates before production deployment, minimizing disruption.

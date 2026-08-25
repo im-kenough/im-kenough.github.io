@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-env="production">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,13 +8,21 @@
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://kennethho.ca/" />
 
+  <script>
+    // Environment is derived from the domain we're served on (the ground truth),
+    // not stamped into the file. Staging (stg.kennethho.ca) reveals the SECRET
+    // classification banner; every other host leaves it hidden. Runs before
+    // <body> paints, so there's no flash.
+    if (location.hostname.startsWith("stg."))
+      document.documentElement.dataset.env = "staging";
+  </script>
+
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
   <link rel="icon" href="/img/favicon.ico" sizes="any" />
   <link rel="manifest" href="/img/site.webmanifest" />
 
-  <link rel="preload" as="image" href="/img/lcars0-1377x1080.webp" type="image/webp" />
   <link rel="stylesheet" href="/vendor/astro/astro-web-components.css" />
   <link rel="stylesheet" href="/styles/fonts.css" />
   <link rel="stylesheet" href="/styles/site.css" />

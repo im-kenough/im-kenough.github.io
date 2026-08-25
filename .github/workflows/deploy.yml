@@ -32,10 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Custom domain marker for GitHub Pages.
-      - name: Write CNAME
-        run: echo "kennethho.ca" > src/CNAME
-
+      # The custom-domain marker (src/CNAME) is committed and ships in ./src.
       - name: Configure Pages
         uses: actions/configure-pages@v6
 
@@ -55,10 +52,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Stamp the staging environment so the SECRET classification banner shows.
-      - name: Stamp staging env
-        run: sed -i 's/data-env="production"/data-env="staging"/' src/index.html
-
+      # The SECRET banner reveals itself client-side from the stg.* hostname
+      # (see src/index.html) — no build-time stamping needed here.
       # --branch=staging matches the Cloudflare project's PRODUCTION branch so
       # this deploy is served on the stg.kennethho.ca custom domain.
       - name: Deploy to Cloudflare Pages
