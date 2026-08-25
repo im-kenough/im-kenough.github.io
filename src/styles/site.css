@@ -47,6 +47,16 @@ rux-card p { margin: 0; font-size: 1.05rem; line-height: 1.6; }
 .btn-link:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 4px; }
 a[slot="footer"].btn-link { display: flex; width: 100%; }
 
+/* Footer sits below the content column. .wrap's flex-grow pushes it to the
+   bottom on short pages; z-index lifts it above the fixed backdrop. */
+.site-footer {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 1.5rem 1.25rem;
+  font-size: 0.85rem; opacity: 0.7;
+}
+.site-footer p { margin: 0; }
+
 /* SECRET banner: present in markup, revealed and pinned only when CI stamps staging. */
 .banner-marking { display: none; }
 :root[data-env="staging"] .banner-marking { display: block; position: sticky; z-index: 2; }
