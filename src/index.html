@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-env="production">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,15 @@
   <meta name="description" content="Cloud Systems Administrator and DevOps Analyst with 10+ years of experience keeping mission-critical systems running." />
   <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://kennethho.ca/" />
+
+  <script>
+    // Environment is derived from the domain we're served on (the ground truth),
+    // not stamped into the file. Staging (stg.kennethho.ca) reveals the SECRET
+    // classification banner; every other host leaves it hidden. Runs before
+    // <body> paints, so there's no flash.
+    if (location.hostname.startsWith("stg."))
+      document.documentElement.dataset.env = "staging";
+  </script>
 
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
@@ -21,7 +30,7 @@
   <script type="module" src="/vendor/astro/astro-web-components.esm.js"></script>
 </head>
 <body>
-  <!-- SECRET banner: revealed only when the deploy is staging (CI stamps data-env); hidden in production. -->
+  <!-- SECRET banner: revealed only on staging (the head script sets data-env from the stg.* hostname); hidden in production. -->
   <rux-classification-marking classification="secret" label=" // STAGING" class="banner-marking banner-top"></rux-classification-marking>
 
   <main class="wrap">

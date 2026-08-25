@@ -24,10 +24,9 @@ jobs:
   draft-release:
     runs-on: ubuntu-latest
     steps:
-      # Full history + tags so the notes can diff against the previous tag.
+      # --generate-notes diffs PRs/tags server-side via the API, so a shallow
+      # checkout is enough — gh only needs it to resolve the repo context.
       - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       # Create a DRAFT release with notes generated from merged PRs. Draft
       # means nothing is public until a human reviews and clicks Publish.
